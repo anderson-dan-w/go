@@ -27,7 +27,7 @@ func square(x float64) float64 {
 func newtonSqrt_10(x float64) float64 {
 	z := float64(x / 2) // randomish starting point
 	for i := 0; i < 10; i++ {
-		z = z - ((z*z - x) / (2 * z))
+		z -= (z*z - x) / (2 * z)
 	}
 	return z
 }
