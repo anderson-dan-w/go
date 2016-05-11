@@ -25,6 +25,15 @@ func adder() func(int) int {
 	}
 }
 
+func fibonacciGenerator() func() int {
+	prev, start := 0, 1
+	return func() int {
+		start, prev = start+prev, start
+		// want to return 1, and then 1 again to be precise
+		return prev
+	}
+}
+
 // a closure that takes a func as a param, cause why not
 // who cares if you can read it or reason about it
 // this is a function, that takes a func like mult or add, and an initial value
@@ -52,13 +61,22 @@ func main() {
 	fmt.Println("... and twice")
 	fmt.Println(wrapTwice(mult, x, y))
 
+	fmt.Println("Accumulator for sum every and evens")
 	every, evens := adder(), adder()
 	for i := 0; i < 5; i++ {
 		fmt.Println(every(i), evens(2*i))
 	}
 
+	fmt.Println("Fibonacci, I hope?")
+	fib := fibonacciGenerator()
+	for i := 0; i < 10; i++ {
+		fmt.Println(fib())
+	}
+
+	fmt.Println("Reducer/factorial thingy")
+	// it's mult, so don't start, or range over, 0
 	expon := doFunc(mult, 1)
-	for i := 1; i < 5; i++ {
+	for i := 1; i < 10; i++ {
 		fmt.Println(expon(i))
 	}
 }
